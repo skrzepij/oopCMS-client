@@ -1,4 +1,4 @@
-import { useGetIdentity } from "@refinedev/core";
+import { useGetIdentity } from '@refinedev/core'
 import {
   ActionIcon,
   Group,
@@ -7,24 +7,24 @@ import {
   Avatar,
   useMantineColorScheme,
   useMantineTheme,
-} from "@mantine/core";
-import { IconSun, IconMoonStars } from "@tabler/icons";
+} from '@mantine/core'
+import { IconSun, IconMoonStars } from '@tabler/icons'
 
 type IUser = {
-  id: number;
-  name: string;
-  avatar: string;
-};
+  id: number
+  name: string
+  avatar: string
+}
 
 export const Header: React.FC = () => {
-  const { data: user } = useGetIdentity<IUser>();
+  const { data: user } = useGetIdentity<IUser>()
 
-  const theme = useMantineTheme();
+  const theme = useMantineTheme()
 
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const dark = colorScheme === "dark";
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme()
+  const dark = colorScheme === 'dark'
 
-  const borderColor = dark ? theme.colors.dark[6] : theme.colors.gray[2];
+  const borderColor = dark ? theme.colors.dark[6] : theme.colors.gray[2]
 
   return (
     <MantineHeader
@@ -40,12 +40,12 @@ export const Header: React.FC = () => {
         position="right"
         align="center"
         sx={{
-          height: "100%",
+          height: '100%',
         }}
       >
         <ActionIcon
           variant="outline"
-          color={dark ? "yellow" : "primary"}
+          color={dark ? 'yellow' : 'primary'}
           onClick={() => toggleColorScheme()}
           title="Toggle color scheme"
         >
@@ -59,5 +59,5 @@ export const Header: React.FC = () => {
         )}
       </Group>
     </MantineHeader>
-  );
-};
+  )
+}
