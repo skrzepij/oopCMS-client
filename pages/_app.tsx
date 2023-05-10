@@ -1,13 +1,24 @@
 import React from 'react'
 import { AppProps } from 'next/app'
 import type { NextPage } from 'next'
-import { Refine, GitHubBanner } from '@refinedev/core'
+import { Refine } from '@refinedev/core'
 import { RefineKbar, RefineKbarProvider } from '@refinedev/kbar'
-import { notificationProvider, ThemedLayout, RefineThemes } from '@refinedev/mantine'
-import routerProvider, { UnsavedChangesNotifier } from '@refinedev/nextjs-router'
+import {
+  notificationProvider,
+  RefineThemes,
+  ThemedLayout,
+} from '@refinedev/mantine'
+import routerProvider, {
+  UnsavedChangesNotifier,
+} from '@refinedev/nextjs-router'
 
 import dataProvider from '@refinedev/nestjsx-crud'
-import { MantineProvider, Global, ColorScheme, ColorSchemeProvider } from '@mantine/core'
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  Global,
+  MantineProvider,
+} from '@mantine/core'
 import { NotificationsProvider } from '@mantine/notifications'
 import { useLocalStorage } from '@mantine/hooks'
 import { Header } from '@components/header'
@@ -43,9 +54,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
   return (
     <>
-      <GitHubBanner />
       <RefineKbarProvider>
-        <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+        <ColorSchemeProvider
+          colorScheme={colorScheme}
+          toggleColorScheme={toggleColorScheme}
+        >
           {/* You can change the theme colors here. example: theme={{ ...RefineThemes.Magenta, colorScheme:colorScheme }} */}
           <MantineProvider
             theme={{ ...RefineThemes.Blue, colorScheme: colorScheme }}
