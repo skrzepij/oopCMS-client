@@ -22,7 +22,7 @@ import {
 import { NotificationsProvider } from '@mantine/notifications'
 import { useLocalStorage } from '@mantine/hooks'
 import { Header } from '@components/header'
-import { API_URL } from 'src/constants'
+import { API_URL, BACKOFFICE_ROOT, BACKOFFICE_PAGES } from 'src/constants'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   noLayout?: boolean
@@ -46,7 +46,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
   }
 
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
-    key: 'mantine-color-scheme',
+    key: 'color-scheme',
     defaultValue: 'light',
     getInitialValueInEffect: true,
   })
@@ -73,21 +73,21 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
                 notificationProvider={notificationProvider}
                 resources={[
                   {
-                    name: 'blog_posts',
-                    list: '/blog-posts',
-                    create: '/blog-posts/create',
-                    edit: '/blog-posts/edit/:id',
-                    show: '/blog-posts/show/:id',
+                    name: `${BACKOFFICE_PAGES.BLOG_POSTS_EP}`,
+                    list: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.BLOG_POSTS}`,
+                    create: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.BLOG_POSTS}/create`,
+                    edit: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.BLOG_POSTS}/edit/:id`,
+                    show: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.BLOG_POSTS}/show/:id`,
                     meta: {
                       canDelete: true,
                     },
                   },
                   {
-                    name: 'categories',
-                    list: '/categories',
-                    create: '/categories/create',
-                    edit: '/categories/edit/:id',
-                    show: '/categories/show/:id',
+                    name: `${BACKOFFICE_PAGES.CATEGORIES}`,
+                    list: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.CATEGORIES}`,
+                    create: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.CATEGORIES}/create`,
+                    edit: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.CATEGORIES}/edit/:id`,
+                    show: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.CATEGORIES}/show/:id`,
                     meta: {
                       canDelete: true,
                     },
