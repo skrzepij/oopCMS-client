@@ -1,32 +1,32 @@
-import { Text, Title } from "@mantine/core";
-import { GetOneResponse, useOne, useShow } from "@refinedev/core";
-import { MarkdownField, Show } from "@refinedev/mantine";
-import dataProvider from "@refinedev/nestjsx-crud";
-import { GetServerSideProps } from "next";
-import { API_URL, BACKOFFICE_PAGES } from "src/constants";
-import { ICategory, IPost } from "src/interfaces";
+import { Text, Title } from '@mantine/core'
+import { GetOneResponse, useOne, useShow } from '@refinedev/core'
+import { MarkdownField, Show } from '@refinedev/mantine'
+import dataProvider from '@refinedev/nestjsx-crud'
+import { GetServerSideProps } from 'next'
+import { API_URL, BACKOFFICE_PAGES } from 'src/constants'
+import { ICategory, IPost } from 'src/interfaces'
 
 type BlogPostShowProps = {
-  initialData: GetOneResponse<IPost>;
-};
+  initialData: GetOneResponse<IPost>
+}
 
 export default function BlogPostShow({ initialData }: BlogPostShowProps) {
   const { queryResult } = useShow({
     queryOptions: {
       initialData,
     },
-  });
-  const { data, isLoading } = queryResult;
-  const record = data?.data;
+  })
+  const { data, isLoading } = queryResult
+  const record = data?.data
 
   // useOne is wrapper on useQuery and is used to fetch the category data
   const { data: categoryData, isLoading: categoryLoading } = useOne<ICategory>({
     resource: BACKOFFICE_PAGES.CATEGORIES,
-    id: record?.category.id || "",
+    id: record?.category.id || '',
     queryOptions: {
       enabled: !!record?.category.id,
     },
-  });
+  })
 
   return (
     <Show isLoading={isLoading || categoryLoading}>
@@ -48,18 +48,18 @@ export default function BlogPostShow({ initialData }: BlogPostShowProps) {
       </Title>
       <Text>{categoryData?.data.title}</Text>
     </Show>
-  );
+  )
 }
 
-export const getServerSideProps: GetServerSideProps<{}> = async (context) => {
+export const getServerSideProps: GetServerSideProps<{}> = async context => {
   const data = await dataProvider(API_URL).getOne({
     resource: BACKOFFICE_PAGES.BLOG_POSTS_EP,
     id: context.params?.id as string,
-  });
+  })
 
   return {
     props: {
       initialData: data,
     },
-  };
-};
+  }
+}
