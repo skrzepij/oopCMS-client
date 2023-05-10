@@ -1,5 +1,6 @@
 import { NavigateToResource } from '@refinedev/nextjs-router'
 import React, { useState } from 'react'
+import { BACKOFFICE_PAGES } from 'src/constants'
 
 export const Admin = () => {
   const [isLogged, setIsLogged] = useState(false)
@@ -11,7 +12,7 @@ export const Admin = () => {
           This is Authorization Step Click to log in
         </button>
       )}
-      {isLogged && <NavigateToResource resource="blog_posts" />}
+      {isLogged && <NavigateToResource resource={`${BACKOFFICE_PAGES.BLOG_POSTS_EP}`} />}
     </>
   )
 }
