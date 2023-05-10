@@ -22,8 +22,8 @@ import {
 import { NotificationsProvider } from "@mantine/notifications";
 import { useLocalStorage } from "@mantine/hooks";
 import { Header } from "@components/header";
+import { API_URL } from "src/constants";
 
-const API_URL = "https://api.nestjsx-crud.refine.dev";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   noLayout?: boolean;
