@@ -1,9 +1,9 @@
-import { Title, Text } from '@mantine/core'
+import { Text, Title } from '@mantine/core'
 import { GetOneResponse, useOne, useShow } from '@refinedev/core'
 import { MarkdownField, Show } from '@refinedev/mantine'
 import dataProvider from '@refinedev/nestjsx-crud'
 import { GetServerSideProps } from 'next'
-import { API_URL } from 'src/constants'
+import { API_URL, BACKOFFICE_PAGES } from 'src/constants'
 import { ICategory, IPost } from 'src/interfaces'
 
 type BlogPostShowProps = {
@@ -21,7 +21,7 @@ export default function BlogPostShow({ initialData }: BlogPostShowProps) {
 
   // useOne is wrapper on useQuery and is used to fetch the category data
   const { data: categoryData, isLoading: categoryLoading } = useOne<ICategory>({
-    resource: 'categories',
+    resource: BACKOFFICE_PAGES.CATEGORIES,
     id: record?.category.id || '',
     queryOptions: {
       enabled: !!record?.category.id,
@@ -53,7 +53,7 @@ export default function BlogPostShow({ initialData }: BlogPostShowProps) {
 
 export const getServerSideProps: GetServerSideProps<{}> = async context => {
   const data = await dataProvider(API_URL).getOne({
-    resource: 'blog_posts',
+    resource: BACKOFFICE_PAGES.BLOG_POSTS_EP,
     id: context.params?.id as string,
   })
 

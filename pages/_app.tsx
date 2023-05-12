@@ -1,17 +1,28 @@
 import React from 'react'
 import { AppProps } from 'next/app'
 import type { NextPage } from 'next'
-import { Refine, GitHubBanner } from '@refinedev/core'
+import { Refine } from '@refinedev/core'
 import { RefineKbar, RefineKbarProvider } from '@refinedev/kbar'
-import { notificationProvider, ThemedLayout, RefineThemes } from '@refinedev/mantine'
-import routerProvider, { UnsavedChangesNotifier } from '@refinedev/nextjs-router'
+import {
+  notificationProvider,
+  RefineThemes,
+  ThemedLayout,
+} from '@refinedev/mantine'
+import routerProvider, {
+  UnsavedChangesNotifier,
+} from '@refinedev/nextjs-router'
 
 import dataProvider from '@refinedev/nestjsx-crud'
-import { MantineProvider, Global, ColorScheme, ColorSchemeProvider } from '@mantine/core'
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  Global,
+  MantineProvider,
+} from '@mantine/core'
 import { NotificationsProvider } from '@mantine/notifications'
 import { useLocalStorage } from '@mantine/hooks'
 import { Header } from '@components/header'
-import { API_URL } from 'src/constants'
+import { API_URL, BACKOFFICE_ROOT, BACKOFFICE_PAGES } from 'src/constants'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   noLayout?: boolean
@@ -35,7 +46,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
   }
 
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
-    key: 'mantine-color-scheme',
+    key: 'color-scheme',
     defaultValue: 'light',
     getInitialValueInEffect: true,
   })
@@ -43,9 +54,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
   return (
     <>
-      <GitHubBanner />
       <RefineKbarProvider>
-        <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+        <ColorSchemeProvider
+          colorScheme={colorScheme}
+          toggleColorScheme={toggleColorScheme}
+        >
           {/* You can change the theme colors here. example: theme={{ ...RefineThemes.Magenta, colorScheme:colorScheme }} */}
           <MantineProvider
             theme={{ ...RefineThemes.Blue, colorScheme: colorScheme }}
@@ -60,21 +73,21 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
                 notificationProvider={notificationProvider}
                 resources={[
                   {
-                    name: 'blog_posts',
-                    list: '/blog-posts',
-                    create: '/blog-posts/create',
-                    edit: '/blog-posts/edit/:id',
-                    show: '/blog-posts/show/:id',
+                    name: `${BACKOFFICE_PAGES.BLOG_POSTS_EP}`,
+                    list: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.BLOG_POSTS}`,
+                    create: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.BLOG_POSTS}/create`,
+                    edit: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.BLOG_POSTS}/edit/:id`,
+                    show: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.BLOG_POSTS}/show/:id`,
                     meta: {
                       canDelete: true,
                     },
                   },
                   {
-                    name: 'categories',
-                    list: '/categories',
-                    create: '/categories/create',
-                    edit: '/categories/edit/:id',
-                    show: '/categories/show/:id',
+                    name: `${BACKOFFICE_PAGES.CATEGORIES}`,
+                    list: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.CATEGORIES}`,
+                    create: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.CATEGORIES}/create`,
+                    edit: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.CATEGORIES}/edit/:id`,
+                    show: `${BACKOFFICE_ROOT}/${BACKOFFICE_PAGES.CATEGORIES}/show/:id`,
                     meta: {
                       canDelete: true,
                     },
